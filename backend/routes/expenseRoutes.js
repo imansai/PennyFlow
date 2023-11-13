@@ -7,7 +7,9 @@ const {
     deleteExpense, 
 } = require('../controllers/expenseController')
 
-router.route('/').get(getExpenses).post(setExpense)
-router.route('/:id').put(updateExpense).delete(deleteExpense)
+const {protect} = require('../middleware/authMiddleware')
+
+router.route('/').get(protect, getExpenses).post(protect, setExpense)
+router.route('/:id').put(protect, updateExpense).delete(protect, deleteExpense)
 
 module.exports = router
