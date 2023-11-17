@@ -1,22 +1,21 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-import expenseService from './expenseService'
+import incomeService from './incomeService'
 
 const initialState = {
-    expenses: [],
+    incomes: [],
     isError: false,
     isSuccess: false,
     isLoading: false,
     message: '',
 }
 
-// create new expense
-export const createExpense = createAsyncThunk(
-    'expenses/create', 
-    async (expenseData, thunkAPI) => {
+// create new income
+export const createIncome = createAsyncThunk(
+    'incomes/create', 
+    async (incomeData, thunkAPI) => {
         try {
-            expenseData.amount = -Math.abs(expenseData.amount)
             const token = thunkAPI.getState().auth.user.token
-            return await expenseService.createExpense(expenseData, token)
+            return await incomeService.createIncome(incomeData, token)
         } catch (error) {
             const message =
                 (error.response &&
@@ -29,11 +28,11 @@ export const createExpense = createAsyncThunk(
     }
 )
 
-// Get user expenses
-export const getExpenses = createAsyncThunk('expenses/getAll', async (_, thunkAPI) => {
+// Get user incomes
+export const getIncomes = createAsyncThunk('incomes/getAll', async (_, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token
-        return await expenseService.getExpenses(token)        
+        return await incomeService.getIncomes(token)        
     } catch (error) {
         const message =
             (error.response &&
@@ -45,13 +44,13 @@ export const getExpenses = createAsyncThunk('expenses/getAll', async (_, thunkAP
     }
 })
 
-// Delete user expense
-export const deleteExpense = createAsyncThunk(
-    'expenses/delete', 
+// Delete user income
+export const deleteIncome = createAsyncThunk(
+    'incomes/delete', 
     async (id, thunkAPI) => {
         try {
             const token = thunkAPI.getState().auth.user.token
-            return await expenseService.deleteExpense(id, token)
+            return await incomeService.deleteIncome(id, token)
         } catch (error) {
             const message =
                 (error.response &&
@@ -64,49 +63,49 @@ export const deleteExpense = createAsyncThunk(
     }
 )
 
-export const expenseSlice = createSlice({
-    name: 'expense',
+export const incomeSlice = createSlice({
+    name: 'income',
     initialState,
     reducers: {
         reset: (state) => initialState,
     },
     extraReducers: (builder) => {
         builder
-            .addCase(createExpense.pending, (state) => {
+            .addCase(createIncome.pending, (state) => {
                 state.isLoading = true
             })
-            .addCase(createExpense.fulfilled, (state, action) => {
+            .addCase(createIncome.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                state.expenses.push(action.payload)
+                state.incomes.push(action.payload)
             })
-            .addCase(createExpense.rejected, (state, action) => {
+            .addCase(createIncome.rejected, (state, action) => {
                 state.isLoading = false
                 state.isError = true
                 state.message = action.payload
             })
-            .addCase(getExpenses.pending, (state) => {
+            .addCase(getIncomes.pending, (state) => {
                 state.isLoading = true
             })
-            .addCase(getExpenses.fulfilled, (state, action) => {
+            .addCase(getIncomes.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                state.expenses = action.payload
+                state.incomes = action.payload
             })
-            .addCase(getExpenses.rejected, (state, action) => {
+            .addCase(getIncomes.rejected, (state, action) => {
                 state.isLoading = false
                 state.isError = true
                 state.message = action.payload
             })
-            .addCase(deleteExpense.pending, (state) => {
+            .addCase(deleteIncome.pending, (state) => {
                 state.isLoading = true
             })
-            .addCase(deleteExpense.fulfilled, (state, action) => {
+            .addCase(deleteIncome.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                state.expenses = state.expenses.filter((expense) => expense._id !== action.payload.id)
+                state.incomes = state.incomes.filter((income) => income._id !== action.payload.id)
             })
-            .addCase(deleteExpense.rejected, (state, action) => {
+            .addCase(deleteIncome.rejected, (state, action) => {
                 state.isLoading = false
                 state.isError = true
                 state.message = action.payload
@@ -114,5 +113,5 @@ export const expenseSlice = createSlice({
     }
 })
 
-export const {reset} = expenseSlice.actions
-export default expenseSlice.reducer
+export const {reset} = incomeSlice.actions
+export default incomeSlice.reducer
