@@ -28,11 +28,22 @@ li {
   line-height: 2.2;
 }
 
-h1,
-h2,
+
+
+h1 {
+  letter-spacing: 1px;
+  margin: 0;
+}
+
 h3 {
-  font-weight: 600;
-  margin-bottom: 10px;
+  border-bottom: 1px solid #bbb;
+  padding-bottom: 10px;
+  margin: 40px 0 10px;
+}
+
+h4 {
+  margin: 0;
+  text-transform: uppercase;
 }
 
 .container {
@@ -99,6 +110,53 @@ h3 {
   margin: 10px 0;
   padding: 20px 0 10px;
   position: relative;
+}
+
+.money {
+  font-size: 20px;
+  letter-spacing: 1px;
+  margin: 5px 0;
+}
+
+.money.plus {
+  color: #2ecc71;
+}
+
+.money.minus {
+  color: #c0392b;
+}
+
+.inc-exp-container {
+  background-color: #fff;
+  box-shadow: var(--box-shadow);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.inc-exp-container > div {
+  flex: 1;
+  text-align: center;
+}
+
+.inc-exp-container > div:first-of-type {
+  border-right: 1px solid #dedede;
+}
+
+/* Style for the modal content */
+div.ReactModal__Content {
+  /* Modal content styles */
+  position: absolute;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+  max-width: 400px; 
+  width: 90%; 
+  z-index: 1001; 
+  height: fit-content;
+  margin: 0 auto;
 }
 
 .list {
