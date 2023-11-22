@@ -53,7 +53,7 @@ function ExpenseForm() {
     return (
         <section>
             <Modal isOpen={showExpenseModal} onRequestClose={toggleExpenseModal} contentLabel="Expense Form Modal">
-                <h2>Add New Expense</h2>
+                <h5>Add New Expense</h5>
                 <form onSubmit={onSubmit}>
                     <div className='form-group'>
                         <label htmlFor='name'>Expense</label>
@@ -102,8 +102,8 @@ function ExpenseForm() {
                     </div>
                 </form>
             </Modal>
-            <button className='btn minus' onClick={toggleExpenseModal}>
-                <FaMinusCircle />
+            <button className='btn expense' onClick={toggleExpenseModal}>
+                <FaMinusCircle />Expense
             </button>
     </section>
     )

@@ -11,30 +11,32 @@ function Transactions() {
     } 
 
   return (
-    <ul className="list">
-    {expenses.concat(incomes).length > 0 ? (
-    expenses
-      .concat(incomes)
-      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort by createdAt property
-      .map((item) => {
-        const isExpense = item.amount < 0; // Check if the amount is negative
+    <div className="content">
+      <ul className="list">
+      {expenses.concat(incomes).length > 0 ? (
+      expenses
+        .concat(incomes)
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort by createdAt property
+        .map((item) => {
+          const isExpense = item.amount < 0; // Check if the amount is negative
 
-        const className = isExpense ? 'minus' : 'plus';
+          const className = isExpense ? 'minus' : 'plus';
 
-        return (
-          <li key={item._id} className={className}>
-            {isExpense ? (
-              <ExpenseItem expense={item} />
-            ) : (
-              <IncomeItem income={item} />
-            )}
-          </li>
-        );
-      })
-  ) : (
-    <h3>No transactions to show</h3>
-  )}
-  </ul>
+          return (
+            <li key={item._id} className={className}>
+              {isExpense ? (
+                <ExpenseItem expense={item} />
+              ) : (
+                <IncomeItem income={item} />
+              )}
+            </li>
+          );
+        })
+    ) : (
+      <h3>No transactions to show</h3>
+    )}
+    </ul>
+  </div>
   )
 }
 export default Transactions

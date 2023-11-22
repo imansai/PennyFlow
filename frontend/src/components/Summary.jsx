@@ -3,20 +3,41 @@ import { getExpenses } from '../features/expenses/expenseSlice'
 import { getIncomes } from '../features/incomes/incomeSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
-
-function Summary() {
+export function useTotalExpenses() {
   const dispatch = useDispatch();
   const { expenses } = useSelector((state) => state.expenses);
-  const { incomes } = useSelector((state) => state.incomes);
 
   useEffect(() => {
     dispatch(getExpenses());
-    dispatch(getIncomes());
   }, [dispatch]);
 
   const totalExpenses = expenses.reduce((acc, expense) => acc + expense.amount, 0);
+  return totalExpenses;
+}
+
+export function useTotalIncomes() {
+  const dispatch = useDispatch();
+  const { incomes } = useSelector((state) => state.incomes);
+
+  useEffect(() => {
+    dispatch(getIncomes());
+  }, [dispatch]);
+
   const totalIncomes = incomes.reduce((acc, income) => acc + income.amount, 0);
-  const balance = totalIncomes + totalExpenses;
+  return totalIncomes;
+}
+
+export function useTotalBalance() {
+  const totalExpenses = useTotalExpenses();
+  const totalIncomes = useTotalIncomes();
+  const balance = totalIncomes +  totalExpenses;
+  return Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(balance);
+}
+
+function Summary() {
+  const totalExpenses = useTotalExpenses();
+  const totalIncomes = useTotalIncomes();
+  const balance = useTotalBalance();
 
   return (
     <div>
@@ -27,11 +48,11 @@ function Summary() {
       <div className="inc-exp-container">
         <div>
           <h4>Expense</h4>
-          <p className="money minus">{totalExpenses*-1}</p>
+          <p>{totalExpenses*-1}</p>
         </div>
         <div>
           <h4>Income</h4>
-          <p className="money plus">{totalIncomes}</p>
+          <p>{totalIncomes}</p>
         </div>
       </div>
     </div>

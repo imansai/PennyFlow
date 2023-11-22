@@ -69,7 +69,6 @@ const deleteExpense = asyncHandler(async (req, res) => {
         throw new Error('Expense not found')
     }
 
-
     // Check for user
     if(!req.user) {
         res.status(401)

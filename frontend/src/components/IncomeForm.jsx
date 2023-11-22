@@ -53,7 +53,7 @@ function IncomeForm() {
     return (
         <section>
             <Modal isOpen={showIncomeModal} onRequestClose={toggleIncomeModal} contentLabel="Income Form Modal">
-                <h2>Add New Income</h2>
+                <h5>Add New Income</h5>
                 <form onSubmit={onSubmit}>
                     <div className='form-group'>
                         <label htmlFor='name'>Income</label>
@@ -102,8 +102,8 @@ function IncomeForm() {
                     </div>
                 </form>
             </Modal>
-            <button className='btn plus' onClick={toggleIncomeModal}>
-                <FaPlusCircle />
+            <button className='btn income' onClick={toggleIncomeModal}>
+                <FaPlusCircle />Income
             </button>
     </section>
     )
