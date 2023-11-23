@@ -60,21 +60,20 @@ function Login() {
   return (
     <>
       <section className='heading'>
-        <h1>
+        <h4>
           <FaSignInAlt/> Login
-        </h1>
+        </h4>
         <p> Login and start tracking your finances</p>
       </section>
-
       <section className='form'>
         <form onSubmit={onSubmit}>
-          <div className='form-group'>
+          <div className='form-group login'>
             <input type='email' className='form-control' id='email' name='email' value={email} placeholder='Enter your email' onChange={onChange}/>
           </div>
-          <div className='form-group'>
+          <div className='form-group login'>
             <input type='password' className='form-control' id='password' name='password' value={password} placeholder='Enter your password' onChange={onChange}/>
           </div>
-          <div className="form-group">
+          <div className='form-group login'>
             <button type='submit' className='btn btn-block'>
               Submit
             </button>

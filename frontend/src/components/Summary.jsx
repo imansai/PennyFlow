@@ -31,7 +31,7 @@ export function useTotalBalance() {
   const totalExpenses = useTotalExpenses();
   const totalIncomes = useTotalIncomes();
   const balance = totalIncomes +  totalExpenses;
-  return Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(balance);
+  return Intl.NumberFormat('en-US', { notation: 'compact', style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(balance);
 }
 
 function Summary() {

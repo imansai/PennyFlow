@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
 import { deleteExpense } from '../features/expenses/expenseSlice'
-import { FaTrashAlt } from 'react-icons/fa'
+import { FaTrashAlt, FaShoppingBasket } from 'react-icons/fa'
 
 
 function ExpenseItem({expense}) {
@@ -9,10 +9,17 @@ function ExpenseItem({expense}) {
 
     return (
     <div className="expense">
-      <p>{expense.name}</p>
-      <p><span style={{ color: 'red' }}>{formattedAmount}</span></p>
-      <p>{new Date(expense.createdAt).toLocaleString('en-US')}</p>
-      <button onClick={() => dispatch(deleteExpense(expense._id))} className="close"><FaTrashAlt/></button>
+      <div className="transaction-icon">
+        <FaShoppingBasket />
+      </div>
+      <div className="transaction-left">
+        <p>{expense.name}</p>
+        <p className="date">{new Date(expense.createdAt).toLocaleString('en-US', {year: "numeric", month: "numeric", day: "numeric"})}</p>
+      </div>
+      <div className="transaction-right">
+        <p><span style={{ color: 'red' }}>{formattedAmount}</span></p>
+        <button onClick={() => dispatch(deleteExpense(expense._id))} className="close"><FaTrashAlt/></button>
+      </div>
     </div>
   )
 }
