@@ -111,76 +111,10 @@ a.logo {
 a.logo:hover {
   color: #0fd354;
 }
-.btn.green {
-  background-color: #0fd354;
-  color:#16113a;
-  border-radius: 100px;
-}
-
-.heading {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 50px;
-  padding: 0 20px;
-}
-
-.heading p {
-  color: #828282;
-}
-
-.incomes, 
-.expenses {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
-.income, 
-.expense {
-  background-color: #f8f8f9;
-  margin:0px;
-  min-width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-}
-.transaction-icon {
-  padding: 1em;
-  background-color: #fff;
-  border-radius: 10px;
-  margin: 1em 1em 1em 0;
-}
-
-.transaction-right {
-  text-align: right;
-  margin-right: 5px;
-  flex-shrink: 0;
-  flex-grow: 1;
-}
-
-.transaction-left {
-  text-align: left;
-}
 
 p.date {
   font-size: small;
   color:#555;
-}
-.income .close,
-.expense .close {
-  cursor: pointer;
-  border: none;
-  background: none;
-  margin-right: 1em;
-  color:#16113a;
-}
-
-.ReactModal__Content {
-  width:fit-content;
-  height: fit-content;
-  margin: 0 auto;
 }
 
 .form,
@@ -196,7 +130,6 @@ p.date {
   margin-right: 20%;
   margin-left: 20%;
 }
-
 
 .form-group input,
 .form-group textarea,
@@ -215,6 +148,12 @@ p.date {
   margin: 0 0 5px 3px;
 }
 
+.ReactModal__Content {
+  width:fit-content;
+  height: fit-content;
+  margin: 0 auto;
+}
+
 .btn {
   padding: 10px 20px;
   border: 1px solid #16113a;
@@ -229,6 +168,12 @@ p.date {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.btn.green {
+  background-color: #0fd354;
+  color:#16113a;
+  border-radius: 100px;
 }
 
 .btn svg {
@@ -247,6 +192,15 @@ p.date {
 
 .btn:hover {
   transform: scale(0.98);
+}
+
+.btn.income {
+  background-color: #2ecc71;
+  border: none;
+}
+.btn.expense {
+  background-color: #c0392b;
+  border: none;
 }
 
 .loadingSpinnerContainer {
@@ -280,6 +234,60 @@ p.date {
   }
 }
 
+.heading {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+  padding: 0 20px;
+}
+
+.heading p {
+  color: #828282;
+}
+
+.incomes, 
+.expenses {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.income, 
+.expense {
+  background-color: #f8f8f9;
+  margin:0px;
+  min-width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.transaction-icon {
+  padding: 1em;
+  background-color: #fff;
+  border-radius: 10px;
+  margin: 1em 1em 1em 0;
+}
+
+.transaction-right {
+  text-align: right;
+  margin-right: 5px;
+  flex-shrink: 0;
+  flex-grow: 1;
+}
+
+.transaction-left {
+  text-align: left;
+}
+
+
+.income .close,
+.expense .close {
+  cursor: pointer;
+  border: none;
+  background: none;
+  margin-right: 1em;
+  color:#16113a;
+}
   
 .plus {
 	color: #2ecc71;
@@ -289,11 +297,11 @@ p.date {
 	color: #c0392b;
   }
 
-  .list {
+.list {
 	list-style-type: none;
 	padding: 30;
 	margin-bottom: 40px;
-  }
+}
   
 .list li {
   background-color: #e9e8f9;
@@ -312,18 +320,20 @@ p.date {
   border-right: 5px solid #c0392b;
 }
 
-
+.accent {
+  color: #a19ce2;
+}
 
 .main {
-    background-color: #f8f8f9;
-    padding: 25px;
-    display: grid;
-    grid-template-columns:  300px 1fr;
-    grid-template-rows: 1fr;
-    grid-template-areas: 
-        "sidebar content";
-    height: 100vh;
-    margin:0;
+  background-color: #f8f8f9;
+  padding: 25px;
+  display: grid;
+  grid-template-columns:  300px 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: 
+      "sidebar content";
+  height: 100vh;
+  margin:0;
 }
 
 .main-sidebar {
@@ -336,8 +346,6 @@ p.date {
   align-items: center;
   padding-top: 25px;
 }
-    
-
 .sidebar-element {
   font-family: 'Galano Grotesque', Poppins;
   font-size: 1rem;
@@ -365,25 +373,36 @@ p.date {
   cursor: pointer;
 }
 
-
-.accent {
-  color: #a19ce2;
-}
-
 .main-content {
   background-color: #f8f8f9;
   padding: 25px;
   grid-area: content;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   grid-template-areas: 
-      "c1 c2 c3"
-      "c4 c4 c5"
-      "c6 c6 c5";
+      "c1 c2 c5"
+      "c1 c3 c5"
+      "c4 c4 c6"
+      "c4 c4 c6";
   gap: 20px;
-  height: 100%;
+  height: 100vh;
+}
 
+.cards {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 0.5rem 2rem;
+  text-align: center;
+  max-width: 100%;
+  border-radius: 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  overflow: hidden;
+  font-weight: 400;
+  gap: 1rem;
 }
 
 .cards .new {
@@ -393,32 +412,6 @@ p.date {
   flex-direction: row;
 
 }
-
-.btn.income {
-  background-color: #2ecc71;
-  border: none;
-}
-.btn.expense {
-  background-color: #c0392b;
-  border: none;
-}
-
-.cards {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 0.5rem 2rem;
-    text-align: center;
-    max-width: 100%;
-    border-radius: 10px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-direction: column;
-    overflow: hidden;
-    font-weight: 400;
-    gap: 1rem;
-}
-
 
 .cards.history {
   justify-content: flex-start;
@@ -472,10 +465,8 @@ p.date {
   .main {
     grid-template-columns: 1fr;
     grid-template-areas: 
-        "content"
-        "content"
         "content";
-    height:100%
+    height:100%;
   }
 
   .main-sidebar {

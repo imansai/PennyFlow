@@ -53,7 +53,8 @@ function ExpenseChart() {
               }]
             },
             options: {
-              // Add any desired Chart.js options here
+              responsive:true,
+              maintainAspectRatio: false
             }
           });
         }
@@ -63,7 +64,7 @@ function ExpenseChart() {
     return (
       <div>
         <h5>Expense Chart</h5>
-        <canvas id="expenseChart" width="800" height="400" ref={chartRef}></canvas>
+        <div className="chart"><canvas id="expenseChart" ref={chartRef}></canvas></div>
       </div>
     );
   }

@@ -51,22 +51,22 @@ function Dashboard() {
   <div className='main'>
     <Sidebar/>
     <div className="main-content">
-      <div className='cards summary'>
+      <div className='cards summary first'>
         <p>Balance</p> 
         <h4>{useTotalBalance()}</h4>
       </div>
-      <div className="cards summary">
+      <div className="cards summary second">
         <p>Expenses</p> 
         <h4>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(useTotalExpenses())}</h4>
       </div>
-      <div className="cards summary">
+      <div className="cards summary third">
         <p>Incomes</p> 
         <h4>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(useTotalIncomes())}</h4>
       </div>
-      <div className="cards">
+      <div className="cards chart">
         <ExpenseChart/>
       </div>
-      <div className="cards">
+      <div className="cards top">
         <h5>Top categories</h5>
       </div>
       <div className="cards history">
@@ -74,7 +74,7 @@ function Dashboard() {
         <div className="history-table"><Transactions/></div>
         <div className="new">
           <IncomeForm/><ExpenseForm/>
-          </div>
+        </div>
       </div>
 
     </div>
