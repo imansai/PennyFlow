@@ -1,5 +1,24 @@
 const mongoose = require('mongoose')
 
+const expenseCategories = [
+    'Housing',
+    'Utilities',
+    'Household Items',
+    'Food',
+    'Transportation',
+    'Investments',
+    'Savings',
+    'Debt',
+    'Health & Fitness',
+    'Entertainment',
+    'Shopping',
+    'Travel',
+    'Personal Care',
+    'Gifts & Donations',
+    'Education',
+    'Miscellaneous',
+  ];
+
 const expenseSchema = mongoose.Schema(
     {
         user: {
@@ -23,6 +42,12 @@ const expenseSchema = mongoose.Schema(
             type: Date,
             default: Date.now,
             required: false,
+        },
+        category: {
+            type: String,
+            default: 'Uncategorized',
+            required: [true, 'Please choose a category'],
+            enum: expenseCategories,
         }
     },
     {

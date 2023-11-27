@@ -16,15 +16,16 @@ const getExpenses = asyncHandler(async (req, res) => {
 // @route POST /api/expenses
 // @access Private
 const setExpense = asyncHandler(async (req, res) => {
-    if (!req.body.name) {
+    if (!req.body.name || !req.body.amount || !req.body.category) {
         res.status(400)
-        throw new Error('Please add valid name')
+        throw new Error('Please add all required fields')
     }
     const expense = await Expense.create({
         name: req.body.name,
         amount: req.body.amount,
         description: req.body.description,
-        date: req.body.date, 
+        date: req.body.date,
+        category: req.body.category, 
         user: req.user.id,
     })
     res.status(200).json(expense)
