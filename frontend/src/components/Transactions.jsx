@@ -17,28 +17,28 @@ function Transactions() {
       .slice(0, 5); // Get the 5 most recent transactions
 
   return (
-      <div className="content">
-          <ul className="list">
-              {sortedTransactions.length > 0 ? (
-                  sortedTransactions.map((item) => {
-                      const isExpense = item.amount < 0;
-                      const className = isExpense ? 'minus' : 'plus';
+    <div className="content">
+        <ul className="list">
+            {sortedTransactions.length > 0 ? (
+                sortedTransactions.map((item) => {
+                    const isExpense = item.amount < 0;
+                    const className = isExpense ? 'minus' : 'plus';
 
-                      return (
-                          <li key={item._id} className={className}>
-                              {isExpense ? (
-                                  <ExpenseItem expense={item} />
-                              ) : (
-                                  <IncomeItem income={item} />
-                              )}
-                          </li>
-                      );
-                  })
-              ) : (
-                  <h3>No transactions to show</h3>
-              )}
-          </ul>
-      </div>
+                    return (
+                        <li key={item._id} className={className}>
+                            {isExpense ? (
+                                <ExpenseItem expense={item} />
+                            ) : (
+                                <IncomeItem income={item} />
+                            )}
+                        </li>
+                    );
+                })
+            ) : (
+                <p>No transactions to show</p>
+            )}
+        </ul>
+    </div>
   )
 }
 export default Transactions;

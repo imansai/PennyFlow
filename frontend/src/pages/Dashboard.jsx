@@ -10,6 +10,8 @@ import Transactions from '../components/Transactions'
 import { useTotalExpenses, useTotalIncomes, useTotalBalance } from '../components/Summary'
 import Sidebar from '../components/Sidebar'
 import ExpenseChart from '../components/ExpenseChart'
+import TopCategories from '../components/TopCategories'
+import CategoriesDonut from '../components/CategoriesDonut'
 
 
 function Dashboard() {
@@ -56,25 +58,25 @@ function Dashboard() {
         <h4>{useTotalBalance()}</h4>
       </div>
       <div className="cards summary second">
-        <p>Expenses</p> 
+        <p>Expenses</p>
         <h4>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(useTotalExpenses())}</h4>
+        <ExpenseForm/>
       </div>
       <div className="cards summary third">
         <p>Incomes</p> 
         <h4>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(useTotalIncomes())}</h4>
+        <IncomeForm/>
       </div>
       <div className="cards chart">
         <ExpenseChart/>
       </div>
       <div className="cards top">
         <h5>Top categories</h5>
+        <CategoriesDonut/>
       </div>
       <div className="cards history">
         <h5>Recent transactions</h5>
         <div className="history-table"><Transactions/></div>
-        <div className="new">
-          <IncomeForm/><ExpenseForm/>
-        </div>
       </div>
 
     </div>

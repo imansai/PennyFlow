@@ -17,6 +17,7 @@ const expenseCategories = [
     'Gifts & Donations',
     'Education',
     'Miscellaneous',
+    'Uncategorized',
   ];
 
 const expenseSchema = mongoose.Schema(

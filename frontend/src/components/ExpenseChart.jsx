@@ -54,7 +54,12 @@ function ExpenseChart() {
             },
             options: {
               responsive:true,
-              maintainAspectRatio: false
+              maintainAspectRatio: true,
+              scales: {
+                y: {
+                  suggestedMin: 0
+                }
+              }
             }
           });
         }
@@ -62,9 +67,10 @@ function ExpenseChart() {
     }, [expenses]);
   
     return (
-      <div>
-        <h5>Expense Chart</h5>
-        <div className="chart"><canvas id="expenseChart" ref={chartRef}></canvas></div>
+      <div style={{ width: '100%', height: '100%' }}>
+        <div className="chart" style={{ width: '100%', height: '100%' }}>
+          <canvas id="expenseChart" ref={chartRef}></canvas>
+        </div>
       </div>
     );
   }

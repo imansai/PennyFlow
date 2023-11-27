@@ -10,9 +10,10 @@ function ExpenseForm() {
         name: '',
         amount: '',
         description: '',
-        date: '',
+        date: new Date().toISOString().substr(0, 10),
+        category: 'Uncategorized',
     })
-    const {name, amount, description, date} = formData
+    const { name, amount, description, date, category} = formData
     
     const dispatch = useDispatch()
 
@@ -22,7 +23,10 @@ function ExpenseForm() {
         
         // Validate the 'name' field
         if (formData.name.trim() === '') {
-            alert('Please enter a valid name.');
+            toast.error('Please enter a valid name.');
+            return;
+        } else if (formData.amount.trim() === '' || isNaN(parseFloat(formData.amount))) {
+            toast.error('Please enter a valid amount.');
             return;
         } else {
             toast.success('Form submitted successfully!', {
@@ -36,7 +40,8 @@ function ExpenseForm() {
             name: '',
             amount: '',
             description: '',
-            date: '',
+            date: new Date().toISOString().substr(0, 10),
+            category: 'Uncategorized',
         })
     }
     const onChange = (e) => {
@@ -74,6 +79,33 @@ function ExpenseForm() {
                             value={amount} 
                             onChange={onChange}
                         />
+                    </div>
+                    <div className='form-group'>
+                        <label htmlFor='category'>Category</label>
+                        <select 
+                            name='category' 
+                            id='category' 
+                            value={category} 
+                            onChange={onChange}
+                        >
+                            <option value='Uncategorized'>Uncategorized</option>
+                            <option value='Housing'>Housing</option>
+                            <option value='Utilities'>Utilities</option>
+                            <option value='Household Items'>Household Items</option>
+                            <option value='Food'>Food</option>
+                            <option value='Transportation'>Transportation</option>
+                            <option value='Investments'>Investments</option>
+                            <option value='Savings'>Savings</option>
+                            <option value='Debt'>Debt</option>
+                            <option value='Health & Fitness'>Health & Fitness</option>
+                            <option value='Entertainment'>Entertainment</option>
+                            <option value='Shopping'>Shopping</option>
+                            <option value='Travel'>Travel</option>
+                            <option value='Personal Care'>Personal Care</option>
+                            <option value='Gifts & Donations'>Gifts & Donations</option>
+                            <option value='Education'>Education</option>
+                            <option value='Miscellaneous'>Miscellaneous</option>
+                        </select>
                     </div>
                     <div className='form-group'>
                         <label htmlFor='description'>Description</label>

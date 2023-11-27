@@ -10,7 +10,7 @@ function IncomeForm() {
         name: '',
         amount: '',
         description: '',
-        date: '',
+        date: new Date().toISOString().substr(0, 10),
     })
     const {name, amount, description, date} = formData
     
@@ -36,7 +36,7 @@ function IncomeForm() {
             name: '',
             amount: '',
             description: '',
-            date: '',
+            date: new Date().toISOString().substr(0, 10),
         })
     }
     const onChange = (e) => {
