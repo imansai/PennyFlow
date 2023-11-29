@@ -59,7 +59,7 @@ function CategoriesDonut() {
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
+                maintainAspectRatio: true,
                 plugins: {
                     legend: {
                         position: 'right', // Set legend position to the right

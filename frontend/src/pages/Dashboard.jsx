@@ -6,12 +6,11 @@ import { getExpenses, reset as resetExpenses } from '../features/expenses/expens
 import { getIncomes, reset as resetIncomes } from '../features/incomes/incomeSlice'
 import ExpenseForm from '../components/ExpenseForm'
 import IncomeForm from '../components/IncomeForm'
-import Transactions from '../components/Transactions'
 import { useTotalExpenses, useTotalIncomes, useTotalBalance } from '../components/Summary'
 import Sidebar from '../components/Sidebar'
 import ExpenseChart from '../components/ExpenseChart'
-import TopCategories from '../components/TopCategories'
 import CategoriesDonut from '../components/CategoriesDonut'
+import TransactionsTable from '../components/TransactionsTable'
 
 
 function Dashboard() {
@@ -76,7 +75,7 @@ function Dashboard() {
       </div>
       <div className="cards history">
         <h5>Recent transactions</h5>
-        <div className="history-table"><Transactions/></div>
+        <TransactionsTable/>
       </div>
 
     </div>
