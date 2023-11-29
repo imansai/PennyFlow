@@ -1,27 +1,34 @@
 import { FaChartPie, FaExchangeAlt, FaMoneyBillAlt, FaUserAlt } from "react-icons/fa"
 import { useSelector } from "react-redux"
+import { useLocation } from "react-router-dom";
 
 function Sidebar() {
-    const { user } = useSelector((state) => state.auth)
+    const { user } = useSelector((state) => state.auth);
+    const location = useLocation();
+  
+    const isActive = (path) => {
+      return location.pathname === path ? "active" : "";
+    };
+  
 
   return (
     <div className="main-sidebar">
-        <button className='sidebar-element user'>
-        <p className='accent'><FaUserAlt/></p>
-        <p>Hi {user && user.name}!</p>
-        </button>
-        <button className='sidebar-element'>
-        <p className='accent'><FaChartPie/></p>
-        <p>Overview</p>
-        </button>
-        <button className='sidebar-element'>
-        <p className='accent'><FaExchangeAlt/></p>
-        <p>Transactions</p>
-        </button>
-        <button className='sidebar-element'>
-        <p className='accent'><FaMoneyBillAlt/></p>
-        <p>Budget</p>
-        </button>
+        <a href='/account' className={`sidebar-element user ${isActive('/account')}`}>
+          <i className='accent'><FaUserAlt/></i>
+          Hi {user && user.name}!
+        </a>
+        <a href='/' className={`sidebar-element ${isActive('/')}`}>
+          <i className='accent'><FaChartPie/></i>
+          Overview
+        </a>
+        <a href='/transactions' className={`sidebar-element ${isActive('/transactions')}`}>
+          <i className='accent'><FaExchangeAlt/></i>
+          Transactions
+        </a>
+        <a href='/budgets' className={`sidebar-element ${isActive('/budgets')}`}>
+          <i className='accent'><FaMoneyBillAlt/></i>
+          Budget
+        </a>
     </div>
   )
 }
