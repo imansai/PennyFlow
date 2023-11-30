@@ -12,7 +12,7 @@ function Sidebar() {
   
 
   return (
-    <div className="main-sidebar">
+    <div className="sidebar">
         <a href='/account' className={`sidebar-element user ${isActive('/account')}`}>
           <i className='accent'><FaUserAlt/></i>
           Hi {user && user.name}!

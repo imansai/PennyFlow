@@ -20,6 +20,8 @@ const setExpense = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('Please add all required fields')
     }
+
+
     const expense = await Expense.create({
         name: req.body.name,
         amount: req.body.amount,

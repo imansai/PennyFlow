@@ -45,14 +45,14 @@ function CategoriesDonut() {
             data: {
             labels: chartLabels,
             datasets: [{
-                label: 'Top Categories',
+                label: 'Expenses',
                 data: chartData,
                 backgroundColor: [
-                'rgba(255, 99, 132, 0.7)',
-                'rgba(54, 162, 235, 0.7)',
-                'rgba(255, 205, 86, 0.7)',
-                'rgba(75, 192, 192, 0.7)',
-                'rgba(153, 102, 255, 0.7)',
+                'rgba(208, 210, 218, 0.7)',
+                'rgba(255, 106, 0, 0.7)',
+                'rgba(0, 183, 254, 0.7)',
+                'rgba(253, 34, 84, 0.7)',
+                'rgba(85, 31, 255, 0.7)',
                 // Add more colors as needed
                 ],
             }]
@@ -63,6 +63,11 @@ function CategoriesDonut() {
                 plugins: {
                     legend: {
                         position: 'right', // Set legend position to the right
+                        labels: {
+                          boxHeight: 10,
+                          boxWidth: 10,
+                          borderRadius: 100,
+                        }
                     },
                 },
             }

@@ -12,7 +12,7 @@ function TransactionsTable() {
   const dispatch = useDispatch();
 
   const [pageNumber, setPageNumber] = useState(0);
-  const transactionsPerPage = 5;
+  const transactionsPerPage = 10;
   const pagesVisited = pageNumber * transactionsPerPage;
 
   if (expensesLoading || incomesLoading) {
@@ -28,12 +28,11 @@ function TransactionsTable() {
     .map((transaction) => {
       if (transaction.amount < 0) {
         return (
-          <tr key={transaction._id} className="minus">
-            <td>{new Date(transaction.createdAt).toLocaleString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}</td>
+          <tr key={transaction._id}>
             <td>{transaction.name}</td>
-            <td>{transaction.amount}</td>
-            <td>
-              <button className='btn' expense={transaction} onClick={() => dispatch(deleteExpense(transaction._id))}>
+            <td className="minus amount-column">{transaction.amount}</td>
+            <td className='close-column'>
+              <button className='close' expense={transaction} onClick={() => dispatch(deleteExpense(transaction._id))}>
               <FaTrashAlt/>
               </button>
             </td>
@@ -41,12 +40,11 @@ function TransactionsTable() {
         );
       } else {
         return (
-          <tr key={transaction._id} className="plus">
-            <td>{new Date(transaction.createdAt).toLocaleString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}</td>
+          <tr key={transaction._id}>
             <td>{transaction.name}</td>
-            <td>{transaction.amount}</td>
-            <td>
-              <button className='btn' income={transaction} onClick={() => dispatch(deleteIncome(transaction._id))}>
+            <td  className="plus amount-column">+{transaction.amount}</td>
+            <td className='close-column'>
+              <button className='close' income={transaction} onClick={() => dispatch(deleteIncome(transaction._id))}>
               <FaTrashAlt/>
               </button>
             </td>
@@ -66,10 +64,9 @@ function TransactionsTable() {
           <table>
             <thead>
               <tr>
-                <th>Date</th>
                 <th>Name</th>
                 <th>Amount</th>
-                <th>Action</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>{displayTransactions}</tbody>

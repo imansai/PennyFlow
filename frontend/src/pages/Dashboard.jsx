@@ -4,13 +4,12 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { getExpenses, reset as resetExpenses } from '../features/expenses/expenseSlice'
 import { getIncomes, reset as resetIncomes } from '../features/incomes/incomeSlice'
-import ExpenseForm from '../components/ExpenseForm'
-import IncomeForm from '../components/IncomeForm'
 import { useTotalExpenses, useTotalIncomes, useTotalBalance } from '../components/Summary'
 import Sidebar from '../components/Sidebar'
 import ExpenseChart from '../components/ExpenseChart'
 import CategoriesDonut from '../components/CategoriesDonut'
 import TransactionsTable from '../components/TransactionsTable'
+import { FaPlusSquare, FaMinusSquare, FaGoogleWallet, FaIdCardAlt } from 'react-icons/fa'
 
 
 function Dashboard() {
@@ -51,31 +50,64 @@ function Dashboard() {
   <>
   <div className='main'>
     <Sidebar/>
-    <div className="main-content">
-      <div className='cards summary first'>
-        <p>Balance</p> 
-        <h4>{useTotalBalance()}</h4>
+    <div className="content">
+
+      <div className="kpi">
+        <div className="summary-container">
+          <h4>Hi {user && user.name}!</h4>
+          <div className="summary">
+            <div className="balance-data">
+              <div className="icon"><FaIdCardAlt/></div>
+              <div className='data'>
+                <p>Balance</p> 
+                <h5>{useTotalBalance()}</h5>
+              </div>
+            </div>
+
+            <div className="expenses-data">
+              <div className="icon"><FaMinusSquare/></div>
+              <div className="data">
+                <p>Expenses</p>
+                <h5>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(useTotalExpenses())}</h5>
+              </div>
+            </div>
+
+            <div className="incomes-data">
+              <div className="icon"><FaPlusSquare/></div>
+              <div className="data">
+                <p>Incomes</p> 
+                <h5>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(useTotalIncomes())}</h5>
+              </div>
+            </div>
+
+            <div className="savings-data">
+              <div className="icon"><FaGoogleWallet/></div>
+              <div className="data">
+                <p>Savings</p> 
+                <h5>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(useTotalIncomes())}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="linechart-container">
+          <div className="linechart"><ExpenseChart/></div>
+        </div>
+
+        <div className="insights-container">
+          <h5>More insights</h5>
+          <div className="insights">
+            <div className="donutchart"><CategoriesDonut/></div>
+            <div className="budgetlist"><CategoriesDonut/></div>
+          </div>
+        </div>
       </div>
-      <div className="cards summary second">
-        <p>Expenses</p>
-        <h4>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(useTotalExpenses())}</h4>
-        <ExpenseForm/>
-      </div>
-      <div className="cards summary third">
-        <p>Incomes</p> 
-        <h4>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(useTotalIncomes())}</h4>
-        <IncomeForm/>
-      </div>
-      <div className="cards chart">
-        <ExpenseChart/>
-      </div>
-      <div className="cards top">
-        <h5>Top categories</h5>
-        <CategoriesDonut/>
-      </div>
-      <div className="cards history">
+
+      <div className='history-container'>
         <h5>Recent transactions</h5>
-        <TransactionsTable/>
+        <div className="history">
+          <div className="table"><TransactionsTable/></div>
+        </div>
       </div>
 
     </div>

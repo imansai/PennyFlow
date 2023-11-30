@@ -8,17 +8,17 @@ function ExpenseItem({expense}) {
     const formattedAmount = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(expense.amount);
 
     return (
-    <div className="expense">
-      <div className="transaction-icon">
+    <div>
+      <div>
         <FaShoppingBasket />
       </div>
-      <div className="transaction-left">
+      <div>
         <p>{expense.name}</p>
-        <p className="date">{new Date(expense.createdAt).toLocaleString('en-US', {year: "numeric", month: "numeric", day: "numeric"})}</p>
+        <p>{new Date(expense.createdAt).toLocaleString('en-US', {year: "numeric", month: "numeric", day: "numeric"})}</p>
       </div>
-      <div className="transaction-right">
+      <div>
         <p><span style={{ color: 'red' }}>{formattedAmount}</span></p>
-        <button onClick={() => dispatch(deleteExpense(expense._id))} className="close"><FaTrashAlt/></button>
+        <button onClick={() => dispatch(deleteExpense(expense._id))}><FaTrashAlt/></button>
       </div>
     </div>
   )

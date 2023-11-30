@@ -63,32 +63,25 @@ function Register() {
 
   return (
     <>
-      <section className='heading'>
-        <h1>
-          <FaUser/> Register
-        </h1>
-        <p> Let's create an account</p>
-      </section>
-
       <section className='form'>
         <form onSubmit={onSubmit}>
-          <div className='form-group'>
+          <h4>Register</h4>
+          <div className='inputbox'>
             <input type='text' className='form-control' id='name' name='name' value={name} placeholder='Enter your name' onChange={onChange}/>
           </div>
-          <div className='form-group'>
+          <div className='inputbox'>
             <input type='email' className='form-control' id='email' name='email' value={email} placeholder='Enter your email' onChange={onChange}/>
           </div>
-          <div className='form-group'>
+          <div className='inputbox'>
             <input type='password' className='form-control' id='password' name='password' value={password} placeholder='Enter your password' onChange={onChange}/>
           </div>
-          <div className='form-group'>
+          <div className='inputbox'>
             <input type='password' className='form-control' id='password2' name='password2' value={password2} placeholder='Confirm your password' onChange={onChange}/>
           </div>
-          <div className="form-group">
-            <button type='submit' className='btn btn-block'>
-              Submit
-            </button>
-          </div>
+          <button type='submit' className='login-btn'>
+            Submit
+          </button>
+
         </form>
       </section>
     </>

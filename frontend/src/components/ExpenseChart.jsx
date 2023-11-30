@@ -40,6 +40,10 @@ function ExpenseChart() {
         } else {
           // Create the line chart if it doesn't exist
           const ctx = chartRef.current.getContext('2d');
+          const gradient = ctx.createLinearGradient(0, 0, 0, 200 );
+          gradient.addColorStop(0, 'rgba(183,176,232,1)');   
+          gradient.addColorStop(1, 'rgba(220,220,220,0)');
+
           chartRef.current.chart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -47,8 +51,9 @@ function ExpenseChart() {
               datasets: [{
                 label: 'Expenses Last 30 Days',
                 data: chartData,
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: gradient,
+                fill: 'start',
+                borderColor: '#7549FF',
                 tension: 0.1
               }]
             },
@@ -57,7 +62,15 @@ function ExpenseChart() {
               maintainAspectRatio: true,
               scales: {
                 y: {
-                  suggestedMin: 0
+                  suggestedMin: 0,
+                  grid: {
+                    display: false,
+                  }
+                },
+                x: {
+                  grid: {
+                    display: false,
+                  }
                 }
               }
             }
