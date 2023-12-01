@@ -84,7 +84,7 @@ function Dashboard() {
               <div className="icon"><FaGoogleWallet/></div>
               <div className="data">
                 <p>Savings</p> 
-                <h5>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(useTotalIncomes())}</h5>
+                <h5>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(2100)}</h5>
               </div>
             </div>
           </div>
