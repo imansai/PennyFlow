@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { getExpenses, reset as resetExpenses } from '../features/expenses/expenseSlice'
 import { getIncomes, reset as resetIncomes } from '../features/incomes/incomeSlice'
-import { useTotalExpenses, useTotalIncomes, useTotalBalance } from '../components/Summary'
+import { useTotalExpenses, useTotalIncomes, useTotalBalance, useTotalSavings } from '../components/Summary'
 import Sidebar from '../components/Sidebar'
 import ExpenseChart from '../components/ExpenseChart'
 import CategoriesDonut from '../components/CategoriesDonut'
@@ -20,6 +20,8 @@ function Dashboard() {
   const { user } = useSelector((state) => state.auth)
   const { isError: expensesError, message: expensesMessage } = useSelector((state) => state.expenses);
   const { isError: incomesError, message: incomesMessage } = useSelector((state) => state.incomes);
+
+
 
   useEffect(() => {
     if(expensesError || incomesError) {
@@ -85,7 +87,7 @@ function Dashboard() {
               <div className="icon"><FaPiggyBank/></div>
               <div className="data">
                 <p>Savings</p> 
-                <h5>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(useTotalIncomes())}</h5>
+                <h5>{useTotalSavings()}</h5>
               </div>
             </div>
           </div>
@@ -104,14 +106,18 @@ function Dashboard() {
         </div>
       </div>
 
-      <div className='history-container'>
-        <div className="special-btn-section">
-          <div className="expense-btn"><ExpenseForm/></div>
-          <div className="income-btn"><IncomeForm/></div>
+      <div className="history">
+        <div className="special-btn-container">
+          <div className="special-btn">
+            <ExpenseForm/>
+            <IncomeForm/>
+          </div>
         </div>
-        <h5>Recent transactions</h5>
-        <div className="history">
-          <div className="table"><TransactionsTable/></div>
+        <div className='table-container'>
+          <h5>Recent transactions</h5>
+          <div className="table">
+            <div className="transaction-table"><TransactionsTable/></div>
+          </div>
         </div>
       </div>
 

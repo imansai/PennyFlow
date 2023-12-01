@@ -34,10 +34,23 @@ export function useTotalBalance() {
   return Intl.NumberFormat('en-US', { notation: 'compact', style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(balance);
 }
 
+export function useTotalSavings() {
+  const dispatch = useDispatch();
+  const { expenses } = useSelector((state) => state.expenses);
+  const savingsExpenses = expenses.filter(expense => expense.category === 'Savings');
+  useEffect(() => {
+    dispatch(getExpenses());
+  }, [dispatch]);
+
+  const savingsTotal = Math.abs(savingsExpenses.reduce((total, expense) => total + expense.amount, 0));
+  return Intl.NumberFormat('en-US', { notation: 'compact', style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(savingsTotal);
+} 
+
 function Summary() {
   const totalExpenses = useTotalExpenses();
   const totalIncomes = useTotalIncomes();
   const balance = useTotalBalance();
+  const totalSavings = useTotalSavings();
 
   return (
     <div>
@@ -53,6 +66,10 @@ function Summary() {
         <div>
           <h4>Income</h4>
           <p>{totalIncomes}</p>
+        </div>
+        <div>
+          <h4>Savings</h4>
+          <p>{totalSavings}</p>
         </div>
       </div>
     </div>

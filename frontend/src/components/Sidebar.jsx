@@ -29,7 +29,7 @@ function Sidebar() {
           <i className='accent'><FaMoneyBillAlt/></i>
           Budgeting
         </a>
-        <a href='/budegts' className={`sidebar-element ${isActive('/budgets')}`}>
+        <a href='/savings' className={`sidebar-element ${isActive('/savings')}`}>
           <i className='accent'><FaPiggyBank/></i>
           Saving Goals
         </a>

@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import { getBudgets, reset as resetBudgets } from '../features/budgets/budgetSlice';
+import Sidebar from '../components/Sidebar';
 
 
 function Budgets() {
@@ -35,9 +36,13 @@ function Budgets() {
     
 
   return (
-    <div>
- 
+  <div className='main'>
+    <Sidebar/>
+    <div className="content">
+      <div className="budget-cards">Cards</div>
+      <div className="budget-form">Budget</div>
     </div>
+  </div>
   )
 }
 export default Budgets
