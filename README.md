@@ -12,7 +12,7 @@ PennyFlow is a personal finance management web application that allows users to 
 
 ## Screenshots
 ### Dashboard Page
-![Dashboard](./frontend//public/Dashboard.png)
+![Dashboard](./frontend//public/Dashboard2.png)
 - Description: Overview of expenses by category, providing insights into spending patterns.
 
 ### Login/Registration Page
