@@ -395,7 +395,6 @@ p.date {
 }
 
 .history {
-  width: 30%;
   background-color: #fff ;
   border-radius: 10px;
   padding: 10px;
@@ -403,11 +402,14 @@ p.date {
 }
 
 .history-container {
-  
+  background-color: #F8F9FC;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: left;
 }
 
 .summary-container {
-  background-color: #f9f9f9 ;
+  background-color: #F8F9FC ;
   border-radius: 10px;
   padding: 10px;
   text-align: left;
@@ -625,3 +627,23 @@ h4 {
 background-clip: text;
 }
 
+.special-btn-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+}
+
+
+.special-btn {
+  color: #551FFF;
+  background-color: #F3F0FF;
+  padding: 15px 65px;
+  border-radius: 10px;
+  text-align: center;
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-width: 100%;
+  border: none;
+
+}

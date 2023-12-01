@@ -30,7 +30,7 @@ function TransactionsTable() {
         return (
           <tr key={transaction._id}>
             <td>{transaction.name}</td>
-            <td className="minus amount-column">{transaction.amount}</td>
+            <td className="minus amount-column">{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(transaction.amount)}</td>
             <td className='close-column'>
               <button className='close' expense={transaction} onClick={() => dispatch(deleteExpense(transaction._id))}>
               <FaTrashAlt/>
@@ -42,7 +42,7 @@ function TransactionsTable() {
         return (
           <tr key={transaction._id}>
             <td>{transaction.name}</td>
-            <td  className="plus amount-column">+{transaction.amount}</td>
+            <td  className="plus amount-column">+{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(transaction.amount)}</td>
             <td className='close-column'>
               <button className='close' income={transaction} onClick={() => dispatch(deleteIncome(transaction._id))}>
               <FaTrashAlt/>
@@ -64,7 +64,7 @@ function TransactionsTable() {
           <table>
             <thead>
               <tr>
-                <th>Name</th>
+                <th>Transaction</th>
                 <th>Amount</th>
                 <th></th>
               </tr>

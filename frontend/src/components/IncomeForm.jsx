@@ -102,7 +102,7 @@ function IncomeForm() {
                     </div>
                 </form>
             </Modal>
-            <button className='btn' onClick={toggleIncomeModal}>
+            <button className='btn special-btn' onClick={toggleIncomeModal}>
                 <FaPlusCircle />Income
             </button>
     </section>

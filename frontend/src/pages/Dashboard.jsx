@@ -9,8 +9,9 @@ import Sidebar from '../components/Sidebar'
 import ExpenseChart from '../components/ExpenseChart'
 import CategoriesDonut from '../components/CategoriesDonut'
 import TransactionsTable from '../components/TransactionsTable'
-import { FaPlusSquare, FaMinusSquare, FaGoogleWallet, FaIdCardAlt } from 'react-icons/fa'
-
+import { FaPlus, FaMinus, FaPiggyBank, FaCreditCard } from 'react-icons/fa'
+import ExpenseForm from '../components/ExpenseForm'
+import IncomeForm from '../components/IncomeForm'
 
 function Dashboard() {
   const navigate = useNavigate()
@@ -57,7 +58,7 @@ function Dashboard() {
           <h4>Hi {user && user.name}!</h4>
           <div className="summary">
             <div className="balance-data">
-              <div className="icon"><FaIdCardAlt/></div>
+              <div className="icon"><FaCreditCard/></div>
               <div className='data'>
                 <p>Balance</p> 
                 <h5>{useTotalBalance()}</h5>
@@ -65,7 +66,7 @@ function Dashboard() {
             </div>
 
             <div className="expenses-data">
-              <div className="icon"><FaMinusSquare/></div>
+              <div className="icon"><FaMinus/></div>
               <div className="data">
                 <p>Expenses</p>
                 <h5>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(useTotalExpenses())}</h5>
@@ -73,7 +74,7 @@ function Dashboard() {
             </div>
 
             <div className="incomes-data">
-              <div className="icon"><FaPlusSquare/></div>
+              <div className="icon"><FaPlus/></div>
               <div className="data">
                 <p>Incomes</p> 
                 <h5>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(useTotalIncomes())}</h5>
@@ -81,10 +82,10 @@ function Dashboard() {
             </div>
 
             <div className="savings-data">
-              <div className="icon"><FaGoogleWallet/></div>
+              <div className="icon"><FaPiggyBank/></div>
               <div className="data">
                 <p>Savings</p> 
-                <h5>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(2100)}</h5>
+                <h5>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(useTotalIncomes())}</h5>
               </div>
             </div>
           </div>
@@ -104,6 +105,10 @@ function Dashboard() {
       </div>
 
       <div className='history-container'>
+        <div className="special-btn-section">
+          <div className="expense-btn"><ExpenseForm/></div>
+          <div className="income-btn"><IncomeForm/></div>
+        </div>
         <h5>Recent transactions</h5>
         <div className="history">
           <div className="table"><TransactionsTable/></div>

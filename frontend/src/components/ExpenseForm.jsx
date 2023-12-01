@@ -134,7 +134,7 @@ function ExpenseForm() {
                     </div>
                 </form>
             </Modal>
-            <button className='btn' onClick={toggleExpenseModal}>
+            <button className='btn special-btn' onClick={toggleExpenseModal}>
                 <FaMinusCircle />Expense
             </button>
     </section>

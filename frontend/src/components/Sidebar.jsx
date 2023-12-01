@@ -1,4 +1,4 @@
-import { FaChartPie, FaExchangeAlt, FaMoneyBillAlt, FaUserAlt } from "react-icons/fa"
+import { FaChartPie, FaExchangeAlt, FaMoneyBillAlt, FaUserAlt, FaPiggyBank } from "react-icons/fa"
 import { useSelector } from "react-redux"
 import { useLocation } from "react-router-dom";
 
@@ -15,7 +15,7 @@ function Sidebar() {
     <div className="sidebar">
         <a href='/account' className={`sidebar-element user ${isActive('/account')}`}>
           <i className='accent'><FaUserAlt/></i>
-          Hi {user && user.name}!
+          Profile
         </a>
         <a href='/' className={`sidebar-element ${isActive('/')}`}>
           <i className='accent'><FaChartPie/></i>
@@ -27,7 +27,11 @@ function Sidebar() {
         </a>
         <a href='/budgets' className={`sidebar-element ${isActive('/budgets')}`}>
           <i className='accent'><FaMoneyBillAlt/></i>
-          Budget
+          Budgeting
+        </a>
+        <a href='/budegts' className={`sidebar-element ${isActive('/budgets')}`}>
+          <i className='accent'><FaPiggyBank/></i>
+          Saving Goals
         </a>
     </div>
   )
