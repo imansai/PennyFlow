@@ -1,11 +1,10 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { createIncome } from '../features/incomes/incomeSlice'
 import Modal from 'react-modal'
-import { FaPlusCircle } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 
-function IncomeForm() {
+function IncomeForm({ initiallyOpen, onClose }) {
     const [formData, setFormData] = useState({
         name: '',
         amount: '',
@@ -45,14 +44,19 @@ function IncomeForm() {
           [e.target.name]: e.target.value,
         }))
     }
-    const [showIncomeModal, setShowIncomeModal] = useState(false)
-    const toggleIncomeModal = () => {
-        setShowIncomeModal(!showIncomeModal)
-    }
+    const [showIncomeModal, setShowIncomeModal] = useState(initiallyOpen);
+
+    useEffect(() => {
+        setShowIncomeModal(initiallyOpen);
+      }, [initiallyOpen]);
     
+      const handleCloseModal = () => {
+        setShowIncomeModal(false);
+        onClose(); // Callback to reset the selected option in the parent component
+      };
     return (
         <section>
-            <Modal isOpen={showIncomeModal} onRequestClose={toggleIncomeModal} contentLabel="Income Form Modal">
+            <Modal isOpen={showIncomeModal} onRequestClose={handleCloseModal} contentLabel="Income Form Modal">
                 <h5>Add New Income</h5>
                 <form onSubmit={onSubmit}>
                     <div className='form-group'>
@@ -102,9 +106,7 @@ function IncomeForm() {
                     </div>
                 </form>
             </Modal>
-            <button className='btn special-btn' onClick={toggleIncomeModal}>
-                <FaPlusCircle />Income
-            </button>
+
     </section>
     )
 }

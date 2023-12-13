@@ -29,21 +29,29 @@ function TransactionsTable() {
       if (transaction.amount < 0) {
         return (
           <tr key={transaction._id}>
+            <td>{new Date(transaction.date).toLocaleString('en-US', {year: "numeric", month: "numeric", day: "numeric"})}</td>
             <td>{transaction.name}</td>
-            <td className="minus amount-column">{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(transaction.amount)}</td>
-            <td className='close-column'>
+            <td className="minus">{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(transaction.amount)}</td>
+            <td>{transaction.description}</td>
+            <td>{new Date(transaction.createdAt).toLocaleString('en-US', {year: "numeric", month: "numeric", day: "numeric"})}</td>
+            <td>
               <button className='close' expense={transaction} onClick={() => dispatch(deleteExpense(transaction._id))}>
               <FaTrashAlt/>
               </button>
             </td>
+            
+            
           </tr>
         );
       } else {
         return (
           <tr key={transaction._id}>
+            <td>{new Date(transaction.date).toLocaleString('en-US', {year: "numeric", month: "numeric", day: "numeric"})}</td>
             <td>{transaction.name}</td>
-            <td  className="plus amount-column">+{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', minimumFractionDigits: 2 }).format(transaction.amount)}</td>
-            <td className='close-column'>
+            <td  className="plus">+{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(transaction.amount)}</td>
+            <td>{transaction.description}</td>
+            <td>{new Date(transaction.createdAt).toLocaleString('en-US', {year: "numeric", month: "numeric", day: "numeric"})}</td>
+            <td>
               <button className='close' income={transaction} onClick={() => dispatch(deleteIncome(transaction._id))}>
               <FaTrashAlt/>
               </button>
@@ -64,9 +72,12 @@ function TransactionsTable() {
           <table>
             <thead>
               <tr>
-                <th>Transaction</th>
+                <th>Date</th>
+                <th>Transaction Name</th>
                 <th>Amount</th>
-                <th></th>
+                <th>Description</th>
+                <th>Created At</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>{displayTransactions}</tbody>

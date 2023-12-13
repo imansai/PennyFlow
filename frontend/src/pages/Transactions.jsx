@@ -5,8 +5,6 @@ import { getExpenses, reset as resetExpenses } from '../features/expenses/expens
 import { getIncomes, reset as resetIncomes } from '../features/incomes/incomeSlice'
 import Sidebar from "../components/Sidebar";
 import TransactionsTable from "../components/TransactionsTable";
-import IncomeForm from "../components/IncomeForm";
-import ExpenseForm from "../components/ExpenseForm";
 
 function Transactions() {
     const navigate = useNavigate()
@@ -44,12 +42,8 @@ function Transactions() {
     <>
     <div className="main">
         <Sidebar/>
-        <div className="main-content">
-            <div className="cards">
-            <IncomeForm/>
-            <ExpenseForm/>
-            <TransactionsTable/>
-            </div>
+        <div className="content">
+          <TransactionsTable/>
         </div>
     </div>
     </>

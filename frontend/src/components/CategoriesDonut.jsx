@@ -55,18 +55,32 @@ function CategoriesDonut() {
                 'rgba(85, 31, 255, 0.7)',
                 // Add more colors as needed
                 ],
+                cutout: 50,
+              
             }]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: true,
+                maintainAspectRatio: false,
+                layout: {
+                  padding: {
+                    top: 50,
+                    
+                  },
+                },
                 plugins: {
                     legend: {
-                        position: 'right', // Set legend position to the right
+                        position: 'bottom', // Set legend position to the right
+                        display: true,
                         labels: {
-                          boxHeight: 10,
-                          boxWidth: 10,
-                          borderRadius: 100,
+                          boxWidth: '15',
+                          
+                          color: 'rgb(22,17,58)',
+                          usePointStyle: true,
+                          font: {
+                            family: 'Inter',
+                            size: 18,
+                        }
                         }
                     },
                 },
@@ -77,8 +91,8 @@ function CategoriesDonut() {
   }, [expenses]);
 
   return (
-    <div>
-      <div className="chart" style={{ width: '100%', height: '100%' }}>
+    <div style={{ width: '1000px', height: '400px' }}> 
+      <div className="chart">
         <canvas id="topCategoriesChart" ref={chartRef}></canvas>
       </div>
     </div>

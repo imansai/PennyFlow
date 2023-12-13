@@ -1,11 +1,10 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { createExpense } from '../features/expenses/expenseSlice'
 import Modal from 'react-modal'
-import { FaMinusCircle } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 
-function ExpenseForm() {
+function ExpenseForm({ initiallyOpen, onClose }) {
     const [formData, setFormData] = useState({
         name: '',
         amount: '',
@@ -50,14 +49,21 @@ function ExpenseForm() {
           [e.target.name]: e.target.value,
         }))
     }
-    const [showExpenseModal, setShowExpenseModal] = useState(false)
-    const toggleExpenseModal = () => {
-    setShowExpenseModal(!showExpenseModal)
-    }
+    const [showExpenseModal, setShowExpenseModal] = useState(initiallyOpen);
+
+    useEffect(() => {
+        setShowExpenseModal(initiallyOpen);
+      }, [initiallyOpen]);
+    
+      const handleCloseModal = () => {
+        setShowExpenseModal(false);
+        onClose(); // Callback to reset the selected option in the parent component
+      };
+
     
     return (
         <section>
-            <Modal isOpen={showExpenseModal} onRequestClose={toggleExpenseModal} contentLabel="Expense Form Modal">
+            <Modal isOpen={showExpenseModal} onRequestClose={handleCloseModal} contentLabel="Expense Form Modal">
                 <h5>Add New Expense</h5>
                 <form onSubmit={onSubmit}>
                     <div className='form-group'>
@@ -134,9 +140,7 @@ function ExpenseForm() {
                     </div>
                 </form>
             </Modal>
-            <button className='btn special-btn' onClick={toggleExpenseModal}>
-                <FaMinusCircle />Expense
-            </button>
+
     </section>
     )
 }

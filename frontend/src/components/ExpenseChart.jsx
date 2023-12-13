@@ -1,91 +1,128 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getExpenses } from '../features/expenses/expenseSlice';
 import Chart from 'chart.js/auto';
 
 function ExpenseChart() {
   const dispatch = useDispatch();
-  const { expenses }  = useSelector((state) => state.expenses);
+  const { expenses } = useSelector((state) => state.expenses);
   const chartRef = useRef(null);
+  const [chartType, setChartType] = useState('monthly');
+  const [chartInstance, setChartInstance] = useState(null);
 
   useEffect(() => {
     dispatch(getExpenses());
   }, [dispatch]);
 
-  // Filter expenses for the last 30 days and process for Chart.js
   useEffect(() => {
-    if (chartRef.current && expenses.length > 0) {
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-  
-        const expensesLast30Days = expenses.filter(expense => new Date(expense.date) >= thirtyDaysAgo);
-
-        // Sort expenses by date in ascending order (oldest to newest)
-        expensesLast30Days.sort((a, b) => new Date(a.date) - new Date(b.date));
-        
-        // Prepare data for Chart.js
-        const chartLabels = expensesLast30Days.map(expense => {
-          const expenseDate = new Date(expense.date);
-          return expenseDate.toLocaleDateString('en-US', { day: 'numeric', month: 'short' })
-        });
-        const chartData = expensesLast30Days.map(expense => {
-          return (expense.amount)*-1;
-        });
-  
-        // Check if chart instance exists and update data instead of creating a new instance
-        if (chartRef.current.chart) {
-          chartRef.current.chart.data.labels = chartLabels;
-          chartRef.current.chart.data.datasets[0].data = chartData;
-          chartRef.current.chart.update();
-        } else {
-          // Create the line chart if it doesn't exist
-          const ctx = chartRef.current.getContext('2d');
-          const gradient = ctx.createLinearGradient(0, 0, 0, 200 );
-          gradient.addColorStop(0, 'rgba(183,176,232,1)');   
-          gradient.addColorStop(1, 'rgba(220,220,220,0)');
-
-          chartRef.current.chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels: chartLabels,
-              datasets: [{
-                label: 'Expenses Last 30 Days',
-                data: chartData,
-                backgroundColor: gradient,
-                fill: 'start',
-                borderColor: '#7549FF',
-                tension: 0.1
-              }]
-            },
-            options: {
-              responsive:true,
-              maintainAspectRatio: true,
-              scales: {
-                y: {
-                  suggestedMin: 0,
-                  grid: {
-                    display: false,
-                  }
-                },
-                x: {
-                  grid: {
-                    display: false,
-                  }
-                }
-              }
-            }
-          });
-        }
+    const processExpenses = (expensesData, type) => {
+      let filteredExpenses = [];
+      let startDate;
+    
+      // Filter expenses based on the selected type (monthly or weekly)
+      if (type === 'monthly') {
+        startDate = new Date();
+        startDate.setDate(startDate.getDate() - 30);
+      } else if (type === 'weekly') {
+        startDate = new Date();
+        startDate.setDate(startDate.getDate() - 7);
       }
-    }, [expenses]);
-  
-    return (
-      <div style={{ width: '100%', height: '100%' }}>
-        <div className="chart" style={{ width: '100%', height: '100%' }}>
-          <canvas id="expenseChart" ref={chartRef}></canvas>
-        </div>
+
+        // Filter expenses including today
+      filteredExpenses = expensesData.filter((expense) => {
+        const expenseDate = new Date(expense.date);
+        return expenseDate >= startDate && expenseDate <= new Date(); // Include expenses done today
+      });
+
+      // Sort filtered expenses by date in ascending order (oldest to newest)
+      filteredExpenses.sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+      // Group expenses by date and calculate total amount for each date
+      const groupedExpenses = {};
+      filteredExpenses.forEach((expense) => {
+        const expenseDate = new Date(expense.date).toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
+        if (!groupedExpenses[expenseDate]) {
+          groupedExpenses[expenseDate] = 0;
+        }
+        groupedExpenses[expenseDate] += expense.amount*-1;
+      });
+    
+      // Extract labels and data from grouped expenses for Chart.js
+      const chartLabels = Object.keys(groupedExpenses); // Get dates as labels
+      const chartData = Object.values(groupedExpenses); // Get total amounts as data
+    
+      return { chartLabels, chartData };
+    };
+
+
+    const createChart = (canvasRef, { chartLabels, chartData }) => {
+      const ctx = canvasRef.getContext('2d');
+      const gradient = ctx.createLinearGradient(0, 0, 0, 200);
+      gradient.addColorStop(0, 'rgba(183,176,232,1)');
+      gradient.addColorStop(1, 'rgba(220,220,220,0)');
+
+      const chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: chartLabels,
+          datasets: [{
+            label: '',
+            data: chartData,
+            backgroundColor: gradient,
+            fill: 'start',
+            borderColor: '#7549FF',
+            tension: 0.1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              suggestedMin: 0,
+              grid: { display: false }
+            },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+
+      return chartInstance;
+    };
+
+    if (chartRef.current && expenses.length > 0) {
+      const processedExpenses = processExpenses(expenses, chartType);
+
+      if (!chartInstance) {
+        const newChartInstance = createChart(chartRef.current, processedExpenses);
+        setChartInstance(newChartInstance);
+      } else {
+        updateChart(chartInstance, processedExpenses);
+      }
+    }
+
+    function updateChart(chart, { chartLabels, chartData }) {
+      chart.data.labels = chartLabels;
+      chart.data.datasets[0].data = chartData;
+      chart.options.plugins.title.text = chartType === 'monthly' ? 'Expenses Last 30 Days' : 'Expenses Last 7 Days';
+      chart.update();
+    }
+  }, [dispatch, expenses, chartType, chartInstance]);
+
+  const handleChartTypeChange = (type) => {
+    setChartType(type);
+  };
+
+  return (
+    <div style={{ width: '100%', height: '400px' }}> 
+      <div className="chart" style={{ width: '100%', height: '100%' }}>
+        <canvas id="expenseChart" ref={chartRef}></canvas>
+        <div className='filter-container'>
+                   <button className={`filter-btn ${chartType === 'monthly' ? 'active' : ''}`} onClick={() => handleChartTypeChange('monthly')}>Last 30 days</button>
+          <button className={`filter-btn ${chartType === 'weekly' ? 'active' : ''}`} onClick={() => handleChartTypeChange('weekly')}>Last 7 days</button>        </div>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
 export default ExpenseChart;

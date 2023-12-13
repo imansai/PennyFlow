@@ -6,7 +6,6 @@ import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Transactions from './pages/Transactions'
-import Budgets from './pages/Budgets'
 import Savings from './pages/Savings'
 
 
@@ -21,7 +20,6 @@ function App() {
             <Route path='/login' element={<Login/>}/>
             <Route path='/register' element={<Register/>}/>
             <Route path='/transactions' element={<Transactions/>}/>
-            <Route path='/budgets' element={<Budgets/>}/>
             <Route path='/savings' element={<Savings/>}/>
           </Routes>
         </div>

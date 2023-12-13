@@ -8,18 +8,17 @@ import { useTotalExpenses, useTotalIncomes, useTotalBalance, useTotalSavings } f
 import Sidebar from '../components/Sidebar'
 import ExpenseChart from '../components/ExpenseChart'
 import CategoriesDonut from '../components/CategoriesDonut'
-import TransactionsTable from '../components/TransactionsTable'
 import { FaPlus, FaMinus, FaPiggyBank, FaCreditCard } from 'react-icons/fa'
-import ExpenseForm from '../components/ExpenseForm'
-import IncomeForm from '../components/IncomeForm'
+import Transactions from '../components/Transactions'
+import FormSelector from '../components/AddNew'
 
 function Dashboard() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const { user } = useSelector((state) => state.auth)
-  const { isError: expensesError, message: expensesMessage } = useSelector((state) => state.expenses);
-  const { isError: incomesError, message: incomesMessage } = useSelector((state) => state.incomes);
+  const { expenses, isError: expensesError, message: expensesMessage } = useSelector((state) => state.expenses);
+  const { incomes, isError: incomesError, message: incomesMessage } = useSelector((state) => state.incomes);
 
 
 
@@ -57,7 +56,13 @@ function Dashboard() {
 
       <div className="kpi">
         <div className="summary-container">
-          <h4>Hi {user && user.name}!</h4>
+          <div className="welcome">
+            <h4>Hi {user && user.name}!</h4>
+            <div>
+              <FormSelector/>
+              
+            </div>
+          </div>
           <div className="summary">
             <div className="balance-data">
               <div className="icon"><FaCreditCard/></div>
@@ -94,30 +99,25 @@ function Dashboard() {
         </div>
 
         <div className="linechart-container">
-          <div className="linechart"><ExpenseChart/></div>
+          
+          <div className="linechart">
+            <h5>Expenses trends over time</h5>
+            <ExpenseChart/>
+            </div>
         </div>
 
         <div className="insights-container">
-          <h5>More insights</h5>
-          <div className="insights">
-            <div className="donutchart"><CategoriesDonut/></div>
-            <div className="budgetlist"><CategoriesDonut/></div>
+          <div className="donutchart">
+            <h5>Your Key Spending Areas: Top 5 Categories</h5>
+            <CategoriesDonut/>
           </div>
         </div>
       </div>
 
       <div className="history">
-        <div className="special-btn-container">
-          <div className="special-btn">
-            <ExpenseForm/>
-            <IncomeForm/>
-          </div>
-        </div>
-        <div className='table-container'>
+        <div className='transaction-container'>
           <h5>Recent transactions</h5>
-          <div className="table">
-            <div className="transaction-table"><TransactionsTable/></div>
-          </div>
+          <div className=""><Transactions/></div>
         </div>
       </div>
 

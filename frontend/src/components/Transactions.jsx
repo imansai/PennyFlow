@@ -14,30 +14,28 @@ function Transactions() {
 
   const sortedTransactions = allTransactions
       .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-      .slice(0, 5); // Get the 5 most recent transactions
+      .slice(0, 12); // Get the 12 most recent transactions
 
   return (
-    <div className="content">
-        <ul className="list">
-            {sortedTransactions.length > 0 ? (
-                sortedTransactions.map((item) => {
-                    const isExpense = item.amount < 0;
-                    const className = isExpense ? 'minus' : 'plus';
+    <div>
+    {sortedTransactions.length > 0 ? (
+        sortedTransactions.map((item) => {
+            const isExpense = item.amount < 0;
+            const className = isExpense ? '' : '';
 
-                    return (
-                        <li key={item._id} className={className}>
-                            {isExpense ? (
-                                <ExpenseItem expense={item} />
-                            ) : (
-                                <IncomeItem income={item} />
-                            )}
-                        </li>
-                    );
-                })
-            ) : (
-                <p>No transactions to show</p>
-            )}
-        </ul>
+            return (
+                <div key={item._id} className={className}>
+                    {isExpense ? (
+                        <ExpenseItem expense={item} />
+                    ) : (
+                        <IncomeItem income={item} />
+                    )}
+                </div>
+            );
+        })
+    ) : (
+        <p>No transactions to show</p>
+    )}
     </div>
   )
 }
